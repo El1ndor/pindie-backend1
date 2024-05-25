@@ -61,6 +61,10 @@ const deleteGame = async (req, res, next) => {
 }
 
 const checkEmptyFields = async (req, res, next) => {
+  if (req.isVoteRequest) {
+      next()
+      return
+    }
   if (
     !req.body.title ||
     !req.body.description ||
@@ -72,14 +76,15 @@ const checkEmptyFields = async (req, res, next) => {
     res.status(400).send(JSON.stringify({ message: 'Заполни все поля' }))
   } else {
     next()
-    if (req.isVoteRequest) {
-      next()
-      return
-    }
+    
   }
 }
 
 const checkIfCategoriesAvaliable = async (req, res, next) => {
+  if (req.isVoteRequest) {
+    next()
+    return
+  }
   if (!req.body.categories || req.body.categories.length === 0) {
     res.setHeader('Content-Type', 'application/json')
     res
@@ -88,10 +93,7 @@ const checkIfCategoriesAvaliable = async (req, res, next) => {
   } else {
     next()
   }
-  if (req.isVoteRequest) {
-    next()
-    return
-  }
+  
 }
 
 const checkIfUsersAreSafe = async (req, res, next) => {

@@ -1,9 +1,9 @@
 const categoriesRouter = require('express').Router()
 
 
-const {findCategoryById , findAllCategories ,createCategory, findByIdAndUpdate, findByIdAndDelete, checkIsCategoryExists, checkAuth  } = require('../middlewares/categories')
+const {findCategoryById , findAllCategories ,createCategory, findByIdAndUpdate, findByIdAndDelete, checkIsCategoryExists,   } = require('../middlewares/categories')
 const {sendCategoriesById, sendAllCategories ,  sendCategoryCreated, sendCategoryUpdated,  deleteCategory } = require('../controllers/categories')
-
+const {checkAuth} = require("../middlewares/auth")
 categoriesRouter.post(
   '/categories',
   createCategory,
