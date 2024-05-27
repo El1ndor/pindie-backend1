@@ -1,5 +1,5 @@
 const users = require("../models/user")
-const bcrypt = require("bcryptjs")
+//const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken");
 const path = require("path");
 
@@ -33,6 +33,10 @@ const login = (req, res) => {
     });
 };
 
+const sendDashboard = (req, res) => {
+  res.sendFile(path.join(__dirname, "../public/admin/dashboard.html"));
+}; 
+
 const sendIndex = (req, res) => {
   if (req.cookies.jwt) {
     try {
@@ -45,7 +49,6 @@ const sendIndex = (req, res) => {
   res.sendFile(path.join(__dirname, "../public/index.html"));
 }; 
 
-const sendDashboard = (req, res) => {
-  res.sendFile(path.join(__dirname, "../public/admin/dashboard.html"));
-}; 
-  module.exports = { login, sendIndex, sendDashboard };
+
+
+  module.exports = { login, sendIndex, sendDashboard,};

@@ -6,16 +6,17 @@ const cookieParser = require("cookie-parser");
 const connectToDatabase = require('./database/connect')
 const apiRouter = require("./routes/api")
 const PORT = 3001
-const cors = require("./middlewares/cors")
+const cors = require("./middlewares/cors");
+const pagesRouter = require('./routes/pages');
 const app = express()
 
 connectToDatabase()
 
 app.use(
   cors,
-  pagesRouter,
   cookieParser(),
   bodyParser.json(),
+  pagesRouter,
   apiRouter,
   express.static(path.join(__dirname, "public")),
 

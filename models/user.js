@@ -1,5 +1,3 @@
-// models/user.js
-
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 
@@ -19,25 +17,25 @@ const userSchema = new mongoose.Schema({
     minlength: 8
   }
 });
-// models/user.js
 
 userSchema.statics.findUserByCredentials = function(email, password) {
-  // Попытаемся найти пользователя по почте
-  return this.findOne({ email }) // this — это модель users
+console.log(email,password)
+  return this.findOne({ email })
     .then(user => {
+      console.log(users)
       if (!user) {
-        // Не нашёлся — отклоняем промис
+
         return Promise.reject(new Error("Неправильные почта или пароль"));
       }
       
-      // Нашёлся — сравниваем хеши
+
       return bcrypt.compare(password, user.password)
         .then(matched => {
           if (!matched) {
             return Promise.reject(new Error("Неправильные почта или пароль"));
           }
 
-          return user; // Теперь user доступен
+          return user; 
       });
   });
 };
