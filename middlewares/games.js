@@ -1,7 +1,7 @@
 const games = require('../models/game')
 
 const findAllGames = async (req, res, next) => {
-  // Поиск всех игр в проекте по заданной категории
+
   if (req.query['categories.name']) {
     req.gamesArray = await games.findGameByCategory(
       req.query['categories.name']
@@ -9,10 +9,10 @@ const findAllGames = async (req, res, next) => {
     next()
     return
   }
-  // Поиск всех игр в проекте
+
   req.gamesArray = await games.find({}).populate('categories').populate({
     path: 'users',
-    select: '-password' // Исключим данные о паролях пользователей
+    select: '-password'
   })
   next()
 }

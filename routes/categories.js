@@ -12,8 +12,8 @@ categoriesRouter.post(
   checkIsCategoryExists,
   checkAuth,
 )
-categoriesRouter.get('/categories', findAllCategories, sendAllCategories, checkAuth)
-categoriesRouter.get('/categories/:id', findCategoryById, sendCategoriesById, checkAuth)
+categoriesRouter.get('/categories', findAllCategories, sendAllCategories, )
+categoriesRouter.get('/categories/:id', findCategoryById, sendCategoriesById,)
 categoriesRouter.put(
   "/categories/:id",
   findByIdAndUpdate,

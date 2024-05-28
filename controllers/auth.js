@@ -1,12 +1,11 @@
-const users = require("../models/user")
-//const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken");
 const path = require("path");
+const user = require("../models/user.js");
 
 const login = (req, res) => {
   const { email, password } = req.body;
-
-  users
+console.log(email, password)
+  user
     .findUserByCredentials(email, password)
     .then((user) => {
       const token = jwt.sign({ _id: user._id }, "some-secret-key", {
@@ -23,12 +22,8 @@ const login = (req, res) => {
             email: user.email, 
             jwt: token });
           })
-    .then((user) => {
-      res
-        .status(200)
-        .send({ _id: user._id, username: user.username, email: user.email });
-    })
     .catch(error => {
+      console.log(error)
       res.status(401).send({ message: error.message });
     });
 };
@@ -49,6 +44,14 @@ const sendIndex = (req, res) => {
   res.sendFile(path.join(__dirname, "../public/index.html"));
 }; 
 
+const checkCookiesJWT = (req, res, next) => {
+  if (!req.cookies.jwt) {
+    return res.redirect("/");
+  }
+  req.headers.authorization = `Bearer ${req.cookies.jwt}`;
+  next();
+};
 
 
-  module.exports = { login, sendIndex, sendDashboard,};
+
+  module.exports = { login, sendIndex, sendDashboard, checkCookiesJWT};
