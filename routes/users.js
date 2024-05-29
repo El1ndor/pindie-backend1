@@ -18,13 +18,13 @@ const {
   sendUserById,
   sendUserUpdated,
   deleteUser,
-  sendMe
+  sendMe,
+  checkEmptyNameAndEmail,
 } = require('../controllers/users')
 
 usersRouter.get('/users', 
 findAllUsers,
  sendAllUsers, 
-//filterPassword
 )
 
 usersRouter.post(
@@ -35,12 +35,12 @@ usersRouter.post(
   checkAuth,
   hashPassword,
   createUser,
-  sendUserCreated
+  sendUserCreated,
 )
-usersRouter.put('/users/:id',findByIdAndUpdate, sendUserUpdated, )
+usersRouter.put('/users/:id',checkEmptyNameAndEmail,findByIdAndUpdate, sendUserUpdated, )
 usersRouter.get('/me', checkAuth, sendMe)
 usersRouter.get('/user/:id',  findUserById,sendUserById, )
 
-usersRouter.delete('/users/:id', checkAuth, deleteUser, findByIdAndDelete)
+usersRouter.delete('/users/:id', checkAuth, findByIdAndDelete, deleteUser, )
 
 module.exports = usersRouter
