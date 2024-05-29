@@ -26,7 +26,8 @@ categoriesRouter.post(
   checkEmptyName,
   checkAuth,
   createCategory,
-  sendCategoryCreated
+  sendCategoryCreated,
+  
 )
 
 categoriesRouter.get('/categories/:id', findCategoryById, sendCategoriesById)
