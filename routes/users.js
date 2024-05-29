@@ -33,7 +33,7 @@ usersRouter.post(
   checkIsUserExists,
   checkEmptyNameAndEmailAndPassword,
   checkAuth,
-  hashPassword,
+ // hashPassword,
   createUser,
   sendUserCreated,
 )

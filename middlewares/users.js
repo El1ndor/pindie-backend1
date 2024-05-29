@@ -94,15 +94,15 @@ const checkIsUserExists = async (req, res, next) => {
 }
 
 const checkEmptyNameAndEmailAndPassword = async (req, res, next) => {
-  if (!req.body.users || req.body.users.length === 0) {
-    res.setHeader('Content-Type', 'application/json')
+  if (!req.body.username || !req.body.email || !req.body.password) {
+    res.setHeader("Content-Type", "application/json");
     res
       .status(400)
-      .send(JSON.stringify({ message: 'Выбери хотя бы одного пользователя' }))
+      .send(JSON.stringify({ message: "Введите имя, email и пароль" }));
   } else {
-    next()
+    next();
   }
-}
+};
 
 const filterPassword = (req, res, next) => {
   const filterUser = user => {
