@@ -1,5 +1,5 @@
-const user = require('../models/user')
 const bcrypt = require('bcryptjs')
+const user = require('../models/user')
 
 const hashPassword = async (req, res, next) => {
   try {
@@ -39,7 +39,7 @@ const findUserById = async (req, res, next) => {
 }
 const findByIdAndUpdate = async (req, res, next) => {
   try {
-    req.game = await games.findByIdAndUpdate(req.params.id, req.body)
+    req.users = await user.findByIdAndUpdate(req.params.id, req.body)
     next()
   } catch (error) {
     res.setHeader('Content-Type', 'application/json')
@@ -51,7 +51,7 @@ const findByIdAndUpdate = async (req, res, next) => {
 
 const findByIdAndDelete = async (req, res, next) => {
   try {
-    req.game = await games.findByIdAndDelete(req.params.id)
+    req.user = await user.findByIdAndDelete(req.params.id)
     next()
   } catch (error) {
     res.setHeader('Content-Type', 'application/json')
@@ -76,7 +76,7 @@ const checkEmptyName = async (req, res, next) => {
 }
 
 const checkIsUserExists = async (req, res, next) => {
-  const isInArray = req.users.find(user => {
+  const isInArray = req.usersArray.find(user => {
     return req.body.email === user.email
   })
   if (isInArray) {
@@ -85,7 +85,7 @@ const checkIsUserExists = async (req, res, next) => {
       .status(400)
       .send(
         JSON.stringify({
-          message: 'Категория с таким названием уже существует'
+          message: 'Пользователь с таким именем уже существует'
         })
       )
   } else {

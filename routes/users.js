@@ -21,24 +21,26 @@ const {
   sendMe
 } = require('../controllers/users')
 
-usersRouter.get('/users', findAllUsers, sendAllUsers, filterPassword)
+usersRouter.get('/users', 
+findAllUsers,
+ sendAllUsers, 
+//filterPassword
+)
 
 usersRouter.post(
   '/users',
-  hashPassword,
+  findAllUsers,
   checkIsUserExists,
   checkEmptyNameAndEmailAndPassword,
+  checkAuth,
+  hashPassword,
   createUser,
-  sendUserCreated,
-  checkAuth
+  sendUserCreated
 )
-usersRouter.get(
-  '/user/:id',
-  filterPassword,
-  findUserById,
-  sendUserById
-)
-usersRouter.put('/users/:id', checkAuth, findByIdAndUpdate, sendUserUpdated)
-usersRouter.delete('/users/:id', checkAuth, deleteUser, findByIdAndDelete)
+usersRouter.put('/users/:id',findByIdAndUpdate, sendUserUpdated, )
 usersRouter.get('/me', checkAuth, sendMe)
+usersRouter.get('/user/:id',  findUserById,sendUserById, )
+
+usersRouter.delete('/users/:id', checkAuth, deleteUser, findByIdAndDelete)
+
 module.exports = usersRouter
