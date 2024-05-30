@@ -97,7 +97,7 @@ const checkIfCategoriesAvaliable = async (req, res, next) => {
 }
 
 const checkIfUsersAreSafe = async (req, res, next) => {
-  if (!req.body.users) {
+  if (!req.body.users||req.isVoteRequest) {
     next()
     return
   }
