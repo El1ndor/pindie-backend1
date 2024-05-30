@@ -23,6 +23,7 @@ const createUser = async (req, res, next) => {
     next()
   } catch (error) {
     console.log(error)
+    res.setHeader('Content-Type', 'application/json')
     res.status(400).send('Ошибка при создании пользователя')
   }
 }
